@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RRY — rry.kr · The Suffix of Rhythm &amp; Ripeness</title>
+<meta name="description" content="rry.kr — The domain of rhythm, ripeness, and resonance. Explore the living suffix that carries the sound of berries, hurries, and merry hearts." />
+<meta property="og:title" content="RRY — rry.kr · The Suffix of Rhythm &amp; Ripeness" />
+<meta property="og:description" content="rry.kr — Where rhythm meets ripeness. The suffix -rry pulses through English from berry to hurry." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style type="text/tailwindcss">
+  @theme {
+    --color-berry:    #c42848;
+    --color-briar:    #e87090;
+    --color-harvest:  #d4900a;
+    --color-dew:      #3a9860;
+    --color-void:     #060408;
+
+    --font-display:   'Cinzel', serif;
+    --font-serif:     'Playfair Display', serif;
+    --font-body:      'Inter', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: #060408;
+    color: #f0e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── canvas ── */
+  #rry-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── vignette ── */
+  .vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center,
+      transparent 40%,
+      rgba(6,4,8,.72) 100%);
+  }
+
+  /* ── overlay ── */
+  .briar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(196,40,72,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 35% at 80% 70%, rgba(58,152,96,.07) 0%, transparent 70%);
+  }
+
+  /* ── layout ── */
+  .page-content { position: relative; z-index: 2; }
+
+  /* ── header ── */
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(6,4,8,.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(196,40,72,.20);
+  }
+
+  /* ── hero bg text ── */
+  .hero-bg-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(12rem, 28vw, 26rem);
+    font-weight: 900;
+    letter-spacing: .12em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(196,40,72,.10);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ── berry ring ── */
+  .berry-ring {
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,40,72,.18);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: ringPulse 7s ease-in-out infinite;
+  }
+  .berry-ring::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,112,144,.14);
+    animation: ringPulse 7s ease-in-out infinite reverse;
+  }
+  @keyframes ringPulse {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity:.8; }
+    50%      { transform: translate(-50%,-50%) scale(1.06); opacity:.4; }
+  }
+
+  /* ── suffix display ── */
+  .suffix-display {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(5rem, 16vw, 13rem);
+    font-weight: 900;
+    line-height: .9;
+    background: linear-gradient(135deg, #e87090 0%, #c42848 40%, #d4900a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: .04em;
+  }
+
+  /* ── pill ── */
+  .word-pill {
+    display: inline-block;
+    padding: .25rem .85rem;
+    border-radius: 9999px;
+    font-size: .78rem;
+    font-weight: 500;
+    border: 1px solid rgba(196,40,72,.28);
+    background: rgba(196,40,72,.08);
+    color: #e87090;
+    transition: all .25s;
+    cursor: default;
+  }
+  .word-pill:hover {
+    background: rgba(196,40,72,.22);
+    border-color: rgba(232,112,144,.6);
+    transform: translateY(-2px);
+  }
+
+  /* ── stat card ── */
+  .stat-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(196,40,72,.15);
+    border-radius: 1.2rem;
+    padding: 1.6rem 2rem;
+    text-align: center;
+    transition: all .3s;
+  }
+  .stat-card:hover {
+    background: rgba(196,40,72,.07);
+    border-color: rgba(196,40,72,.35);
+    transform: translateY(-3px);
+  }
+
+  /* ── face card ── */
+  .face-card {
+    background: rgba(255,255,255,.025);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,.06);
+    transition: all .35s;
+  }
+  .face-card:hover {
+    background: rgba(255,255,255,.05);
+    transform: translateY(-4px);
+  }
+
+  /* ── feature card ── */
+  .feat-card {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 1.2rem;
+    padding: 1.8rem;
+    transition: all .3s;
+  }
+  .feat-card:hover {
+    background: rgba(255,255,255,.05);
+    border-color: rgba(196,40,72,.3);
+    transform: translateY(-3px);
+  }
+
+  /* ── timeline ── */
+  .timeline-step {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline-step::before {
+    content: '';
+    position: absolute;
+    left: 0; top: .55rem;
+    width: .6rem; height: .6rem;
+    border-radius: 50%;
+    background: #c42848;
+    box-shadow: 0 0 8px rgba(196,40,72,.6);
+  }
+  .timeline-step::after {
+    content: '';
+    position: absolute;
+    left: .28rem; top: 1.3rem;
+    width: 1px;
+    height: calc(100% + .5rem);
+    background: rgba(196,40,72,.2);
+  }
+  .timeline-step:last-child::after { display: none; }
+
+  /* ── word gallery ── */
+  .gallery-item {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 1rem;
+    padding: 1.1rem 1.3rem;
+    transition: all .28s;
+    cursor: default;
+  }
+  .gallery-item:hover {
+    background: rgba(196,40,72,.10);
+    border-color: rgba(196,40,72,.3);
+    transform: translateY(-3px);
+  }
+
+  /* ── codex ── */
+  .codex-box {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(196,40,72,.20);
+    border-radius: 1.5rem;
+    padding: 2.4rem;
+  }
+  .codex-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: .65rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    gap: 1rem;
+  }
+  .codex-row:last-child { border-bottom: none; }
+
+  /* ── series grid ── */
+  .series-card {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 1rem;
+    padding: 1.1rem 1.4rem;
+    text-align: center;
+    transition: all .28s;
+    text-decoration: none;
+    display: block;
+  }
+  .series-card:hover {
+    background: rgba(255,255,255,.055);
+    border-color: rgba(196,40,72,.3);
+    transform: translateY(-2px);
+  }
+  .series-card.active {
+    background: rgba(196,40,72,.15);
+    border-color: rgba(196,40,72,.5);
+  }
+
+  /* ── fade-up ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── btn ── */
+  .btn-primary {
+    display: inline-block;
+    padding: .85rem 2.2rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #c42848, #e87090);
+    color: #fff;
+    font-weight: 600;
+    font-size: .95rem;
+    letter-spacing: .06em;
+    text-decoration: none;
+    transition: all .28s;
+    box-shadow: 0 4px 24px rgba(196,40,72,.35);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(196,40,72,.50);
+  }
+  .btn-outline {
+    display: inline-block;
+    padding: .85rem 2.2rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(196,40,72,.5);
+    color: #e87090;
+    font-weight: 600;
+    font-size: .95rem;
+    letter-spacing: .06em;
+    text-decoration: none;
+    transition: all .28s;
+  }
+  .btn-outline:hover {
+    background: rgba(196,40,72,.12);
+    border-color: #c42848;
+    transform: translateY(-2px);
+  }
+
+  section { position: relative; }
+</style>
+</head>
+<body>
+
+<!-- Canvas + overlays -->
+<canvas id="rry-canvas"></canvas>
+<div class="vignette"></div>
+<div class="briar-overlay"></div>
+
+<div class="page-content">
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header class="site-header">
+  <div style="max-width:1280px;margin:0 auto;padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:.9rem;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c42848,#e87090);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:.88rem;color:#fff;letter-spacing:.04em;">R</div>
+      <span style="font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;letter-spacing:.08em;color:#f0e8f0;">rry.kr</span>
+      <span style="padding:.15rem .7rem;border-radius:9999px;background:rgba(196,40,72,.15);border:1px solid rgba(196,40,72,.35);font-size:.7rem;font-weight:600;letter-spacing:.1em;color:#e87090;text-transform:uppercase;">Suffix Domain</span>
+    </div>
+    <nav style="display:flex;gap:2rem;align-items:center;">
+      <a href="#identity" style="font-size:.85rem;color:rgba(240,232,240,.6);text-decoration:none;letter-spacing:.04em;transition:color .2s;" onmouseover="this.style.color='#e87090'" onmouseout="this.style.color='rgba(240,232,240,.6)'">Identity</a>
+      <a href="#words"    style="font-size:.85rem;color:rgba(240,232,240,.6);text-decoration:none;letter-spacing:.04em;transition:color .2s;" onmouseover="this.style.color='#e87090'" onmouseout="this.style.color='rgba(240,232,240,.6)'">Words</a>
+      <a href="#origins"  style="font-size:.85rem;color:rgba(240,232,240,.6);text-decoration:none;letter-spacing:.04em;transition:color .2s;" onmouseover="this.style.color='#e87090'" onmouseout="this.style.color='rgba(240,232,240,.6)'">Origins</a>
+      <a href="#contact"  class="btn-primary" style="padding:.45rem 1.3rem;font-size:.8rem;">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:7rem 2rem 4rem;position:relative;overflow:hidden;">
+  <div class="hero-bg-text">RRY</div>
+  <div class="berry-ring"></div>
+
+  <div style="max-width:860px;text-align:center;position:relative;">
+    <div style="display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1.2rem;border-radius:9999px;background:rgba(196,40,72,.12);border:1px solid rgba(196,40,72,.3);margin-bottom:2rem;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#c42848;box-shadow:0 0 8px rgba(196,40,72,.7);display:inline-block;"></span>
+      <span style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#e87090;font-weight:600;">Suffix Domain</span>
+    </div>
+
+    <div class="suffix-display" style="margin-bottom:.6rem;">‑rry</div>
+
+    <p style="font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:rgba(240,232,240,.55);letter-spacing:.06em;margin-bottom:2rem;">
+      Old English <em>‑rig</em> · Old Norse <em>‑r</em> · Middle English gemination
+    </p>
+
+    <p style="font-size:1.22rem;line-height:1.75;color:rgba(240,232,240,.82);max-width:640px;margin:0 auto 1.8rem;font-family:'Playfair Display',serif;">
+      The suffix that <strong style="color:#e87090;">ripens on the tongue</strong> — carrying the weight of 
+      <em>berries</em>, the rush of <em>hurry</em>, and the brightness of 
+      <em>merry</em>. A sound-shape older than written English, still alive in every season.
+    </p>
+
+    <blockquote style="font-family:'Playfair Display',serif;font-size:1.08rem;font-style:italic;color:#d4900a;margin-bottom:2.2rem;padding:.8rem 1.5rem;border-left:2px solid rgba(212,144,10,.4);">
+      "Every ‑rry word is a small, round world — complete, resonant, and full of colour."
+    </blockquote>
+
+    <div style="display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:2.8rem;">
+      <span class="word-pill">berry</span>
+      <span class="word-pill">cherry</span>
+      <span class="word-pill">merry</span>
+      <span class="word-pill">hurry</span>
+      <span class="word-pill">curry</span>
+      <span class="word-pill">worry</span>
+      <span class="word-pill">carry</span>
+      <span class="word-pill">marry</span>
+      <span class="word-pill">ferry</span>
+      <span class="word-pill">erry</span>
+      <span class="word-pill">parry</span>
+      <span class="word-pill">tarry</span>
+      <span class="word-pill">flurry</span>
+      <span class="word-pill">slurry</span>
+      <span class="word-pill">quarry</span>
+    </div>
+
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="#identity" class="btn-primary">Explore ‑rry</a>
+      <a href="#words"    class="btn-outline">Word Gallery</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     STATS
+════════════════════════════════════════════ -->
+<section id="identity" style="padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;" class="fade-up">
+      <div class="stat-card">
+        <div style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#c42848,#e87090);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">300+</div>
+        <div style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,240,.5);margin-top:.4rem;">‑rry words in English</div>
+      </div>
+      <div class="stat-card">
+        <div style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#d4900a,#e8c050);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">3</div>
+        <div style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,240,.5);margin-top:.4rem;">grammatical roles</div>
+      </div>
+      <div class="stat-card">
+        <div style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#3a9860,#70d090);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">OE</div>
+        <div style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,240,.5);margin-top:.4rem;">Old English root</div>
+      </div>
+      <div class="stat-card">
+        <div style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#e87090,#c42848);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">∞</div>
+        <div style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,240,.5);margin-top:.4rem;">sonic resonance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     THREE FACES  (Noun / Adj / Verb)
+════════════════════════════════════════════ -->
+<section style="padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Grammatical Identity</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">Three Faces of ‑rry</h2>
+      <p style="font-size:1rem;color:rgba(240,232,240,.55);margin-top:.8rem;max-width:540px;margin-left:auto;margin-right:auto;">A rare suffix that wears three grammatical masks — noun, adjective, and verb — each with its own history and flavour.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.8rem;">
+      <div class="face-card fade-up" style="border-top:3px solid #c42848;">
+        <div style="font-size:2.8rem;margin-bottom:1rem;">🍒</div>
+        <div style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#c42848;margin-bottom:.5rem;font-weight:600;">Noun · Fruit &amp; Place</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#f0e8f0;margin-bottom:.8rem;">Ripeness &amp; Locality</h3>
+        <p style="font-size:.9rem;color:rgba(240,232,240,.65);line-height:1.7;margin-bottom:1.1rem;">In nouns, ‑rry evokes tangible things — fruits, places, and gatherings. It grounds language in the physical world with a satisfying phonetic roundness.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+          <span class="word-pill">berry</span>
+          <span class="word-pill">cherry</span>
+          <span class="word-pill">quarry</span>
+          <span class="word-pill">pantry</span>
+          <span class="word-pill">curry</span>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" style="border-top:3px solid #d4900a;">
+        <div style="font-size:2.8rem;margin-bottom:1rem;">🌟</div>
+        <div style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#d4900a;margin-bottom:.5rem;font-weight:600;">Adjective · Quality</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#f0e8f0;margin-bottom:.8rem;">Brightness &amp; Spirit</h3>
+        <p style="font-size:.9rem;color:rgba(240,232,240,.65);line-height:1.7;margin-bottom:1.1rem;">As an adjective suffix, ‑rry conveys mood and quality — particularly the light, vivid qualities of warmth, joy, and alertness.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+          <span class="word-pill" style="border-color:rgba(212,144,10,.3);background:rgba(212,144,10,.08);color:#e8b840;">merry</span>
+          <span class="word-pill" style="border-color:rgba(212,144,10,.3);background:rgba(212,144,10,.08);color:#e8b840;">starry</span>
+          <span class="word-pill" style="border-color:rgba(212,144,10,.3);background:rgba(212,144,10,.08);color:#e8b840;">hairy</span>
+          <span class="word-pill" style="border-color:rgba(212,144,10,.3);background:rgba(212,144,10,.08);color:#e8b840;">wary</span>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" style="border-top:3px solid #3a9860;">
+        <div style="font-size:2.8rem;margin-bottom:1rem;">⚡</div>
+        <div style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#3a9860;margin-bottom:.5rem;font-weight:600;">Verb · Motion</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#f0e8f0;margin-bottom:.8rem;">Urgency &amp; Action</h3>
+        <p style="font-size:.9rem;color:rgba(240,232,240,.65);line-height:1.7;margin-bottom:1.1rem;">As a verb ending, ‑rry encodes rapid, repeated, or concerned movement — from the dash of <em>hurry</em> to the anxious weight of <em>worry</em>.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+          <span class="word-pill" style="border-color:rgba(58,152,96,.3);background:rgba(58,152,96,.08);color:#70d090;">hurry</span>
+          <span class="word-pill" style="border-color:rgba(58,152,96,.3);background:rgba(58,152,96,.08);color:#70d090;">worry</span>
+          <span class="word-pill" style="border-color:rgba(58,152,96,.3);background:rgba(58,152,96,.08);color:#70d090;">carry</span>
+          <span class="word-pill" style="border-color:rgba(58,152,96,.3);background:rgba(58,152,96,.08);color:#70d090;">marry</span>
+          <span class="word-pill" style="border-color:rgba(58,152,96,.3);background:rgba(58,152,96,.08);color:#70d090;">ferry</span>
+          <span class="word-pill" style="border-color:rgba(58,152,96,.3);background:rgba(58,152,96,.08);color:#70d090;">parry</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     R · R · Y LETTERS GRID
+════════════════════════════════════════════ -->
+<section style="padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Sonic Anatomy</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">The Letters of ‑rry</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;" class="fade-up">
+      <!-- R -->
+      <div style="text-align:center;padding:2.5rem 1.5rem;background:rgba(196,40,72,.06);border:1px solid rgba(196,40,72,.18);border-radius:1.5rem;">
+        <div style="font-family:'Cinzel',serif;font-size:4rem;font-weight:900;color:#c42848;line-height:1;margin-bottom:1rem;">R</div>
+        <div style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,232,240,.4);margin-bottom:.6rem;">Resonance</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.65);line-height:1.65;">The rolling R — the most somatic consonant in English — provides the suffix its tactile, physical character. You feel ‑rry before you understand it.</p>
+      </div>
+      <!-- R (geminate) -->
+      <div style="text-align:center;padding:2.5rem 1.5rem;background:rgba(212,144,10,.06);border:1px solid rgba(212,144,10,.18);border-radius:1.5rem;">
+        <div style="font-family:'Cinzel',serif;font-size:4rem;font-weight:900;color:#d4900a;line-height:1;margin-bottom:1rem;">R</div>
+        <div style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,232,240,.4);margin-bottom:.6rem;">Rhythm</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.65);line-height:1.65;">The geminate (double) R is not redundant — it shortens the preceding vowel and doubles the beat, giving words like <em>berry</em> their staccato punch and roundness.</p>
+      </div>
+      <!-- Y -->
+      <div style="text-align:center;padding:2.5rem 1.5rem;background:rgba(58,152,96,.06);border:1px solid rgba(58,152,96,.18);border-radius:1.5rem;">
+        <div style="font-family:'Cinzel',serif;font-size:4rem;font-weight:900;color:#3a9860;line-height:1;margin-bottom:1rem;">Y</div>
+        <div style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,232,240,.4);margin-bottom:.6rem;">Yield</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.65);line-height:1.65;">The final ‑y is the soft close — the open vowel that gives ‑rry words their approachable, colloquial warmth. It echoes the diminutive and affectionate in English.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FEATURE CARDS
+════════════════════════════════════════════ -->
+<section style="padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Linguistic Features</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">What Makes ‑rry Unique</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;" class="fade-up">
+      <div class="feat-card">
+        <div style="font-size:1.8rem;margin-bottom:1rem;">🔊</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#f0e8f0;margin-bottom:.6rem;">Phonaesthesia</h3>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.65;">The ‑rry cluster carries an intrinsic sonic meaning — the trill of the R and the open Y create a sense of roundness, rolling motion, or small enclosed fullness. This is one of English's richest phonaesthetic patterns.</p>
+      </div>
+      <div class="feat-card">
+        <div style="font-size:1.8rem;margin-bottom:1rem;">🌿</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#f0e8f0;margin-bottom:.6rem;">Germanic Heritage</h3>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.65;">Unlike the Latinate suffixes (-ity, -ify, -ial), ‑rry is purely Germanic. Words bearing it have been in English for over a thousand years, connecting modern speakers directly to the Anglo-Saxon world.</p>
+      </div>
+      <div class="feat-card">
+        <div style="font-size:1.8rem;margin-bottom:1rem;">🎭</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#f0e8f0;margin-bottom:.6rem;">Register Versatility</h3>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.65;">‑rry words span from the poetic (<em>starry-eyed</em>) to the everyday (<em>carry a bag</em>) to the metaphorical (<em>don't worry</em>). The suffix fits seamlessly in any register without sounding either too formal or too casual.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ETYMOLOGY TIMELINE
+════════════════════════════════════════════ -->
+<section id="origins" style="padding:5rem 2rem;">
+  <div style="max-width:800px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Etymology</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">The Journey of ‑rry</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:2rem;" class="fade-up">
+      <div class="timeline-step">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#c42848;margin-bottom:.3rem;">Proto-Germanic · pre-500 CE</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#e87090;margin-bottom:.3rem;font-style:italic;">*-rjaz / *-agaz</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.6;">Proto-Germanic root forms denoting small round objects, qualities of place, and states of being. These ancestral morphemes gave birth to the fruit names and motion verbs that define ‑rry.</p>
+      </div>
+      <div class="timeline-step">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#c42848;margin-bottom:.3rem;">Old English · 500–1100 CE</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#e87090;margin-bottom:.3rem;font-style:italic;">‑rig, ‑ig, ‑erian</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.6;">Old English established the core vocabulary: <em>berie</em> (berry), <em>ciris</em> (cherry from Latin), <em>myrge</em> (merry), <em>hyrgan</em> (to hurry). The suffix forms were fluid, shifting between -ig and -rig.</p>
+      </div>
+      <div class="timeline-step">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#c42848;margin-bottom:.3rem;">Middle English · 1100–1500 CE</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#e87090;margin-bottom:.3rem;font-style:italic;">Gemination & stabilisation</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.6;">The double-R spelling emerged as scribes stabilised pronunciation: <em>bery → berry</em>, <em>mery → merry</em>. This gemination (consonant doubling) encodes the short vowel rule that still governs English spelling today.</p>
+      </div>
+      <div class="timeline-step">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#c42848;margin-bottom:.3rem;">Early Modern English · 1500–1700 CE</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#e87090;margin-bottom:.3rem;font-style:italic;">Expansion via Norman &amp; Norse</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.6;">Norman French and Old Norse borrowings that ended in similar sounds were assimilated into the ‑rry pattern: <em>quarry</em> (OF <em>quarriere</em>), <em>ferry</em> (ON <em>ferja</em>), <em>curry</em> (Tamil <em>kari</em> via Portuguese).</p>
+      </div>
+      <div class="timeline-step">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#c42848;margin-bottom:.3rem;">Modern English · 1700 CE → present</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#e87090;margin-bottom:.3rem;font-style:italic;">‑rry · fixed orthography</div>
+        <p style="font-size:.88rem;color:rgba(240,232,240,.6);line-height:1.6;">The ‑rry spelling is now fully standardised. With over 300 established words and continued borrowings, the pattern remains one of the most phonetically distinctive and culturally resonant clusters in the English lexicon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     WORD GALLERY
+════════════════════════════════════════════ -->
+<section id="words" style="padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Word Gallery</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">‑rry in Action</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;" class="fade-up">
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">berry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">small fleshy fruit; OE <em>berie</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">cherry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">red stone fruit; Anglo-Norman <em>cherise</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">merry</div>
+        <div style="font-size:.72rem;color:#d4900a;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">adjective</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">cheerful, joyous; OE <em>myrge</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">hurry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">move quickly; origin obscure, ME</div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">worry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">feel anxious; OE <em>wyrgan</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">carry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">transport; ONF <em>carier</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">quarry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">stone excavation; OF <em>quarriere</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">marry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">wed; OF <em>marier</em>, L <em>maritare</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">starry</div>
+        <div style="font-size:.72rem;color:#d4900a;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">adjective</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">full of stars; <em>star</em> + ‑ry</div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">ferry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun / verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">river transport; ON <em>ferja</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">flurry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">sudden burst; imit. origin, 17c</div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">curry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">spiced dish; Tamil <em>kari</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">parry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">deflect a blow; F <em>parer</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">tarry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">linger, delay; ME <em>tarien</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">slurry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">thin liquid mixture; ME <em>sloor</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">scurry</div>
+        <div style="font-size:.72rem;color:#3a9860;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">verb</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">move hastily; imit. reduplication</div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">burry</div>
+        <div style="font-size:.72rem;color:#d4900a;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">adjective</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">full of burs; <em>bur</em> + ‑ry</div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">hurry-scurry</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun / adv</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">confusion; rhyming reduplication</div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">ovary</div>
+        <div style="font-size:.72rem;color:#c42848;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">noun</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">reproductive organ; NL <em>ovarium</em></div>
+      </div>
+      <div class="gallery-item">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#e87090;">sorry</div>
+        <div style="font-size:.72rem;color:#d4900a;text-transform:uppercase;letter-spacing:.1em;margin:.2rem 0;">adjective</div>
+        <div style="font-size:.83rem;color:rgba(240,232,240,.55);">feeling regret; OE <em>sarig</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CODEX BOX
+════════════════════════════════════════════ -->
+<section style="padding:5rem 2rem;">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Lexical Profile</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">Codex ‑rry</h2>
+    </div>
+    <div class="codex-box fade-up">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(196,40,72,.2);">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#c42848,#e87090);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:1rem;color:#fff;">rry</div>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:#f0e8f0;letter-spacing:.06em;">SUFFIX PROFILE</div>
+          <div style="font-size:.75rem;color:rgba(240,232,240,.4);letter-spacing:.1em;">rry.kr · Lexical Identity</div>
+        </div>
+      </div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Suffix</span><span style="font-family:'Playfair Display',serif;font-size:1rem;color:#e87090;font-style:italic;">‑rry</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Origin</span><span style="font-size:.9rem;color:#f0e8f0;text-align:right;max-width:60%;">Proto-Germanic → Old English → Middle English</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Function</span><span style="font-size:.9rem;color:#f0e8f0;text-align:right;max-width:60%;">Noun (fruit/place), Adjective (quality), Verb (action)</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Orthography</span><span style="font-size:.9rem;color:#f0e8f0;">Geminate R + vowel Y</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Register</span><span style="font-size:.9rem;color:#f0e8f0;">Native · everyday · poetic</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Phonaesthesia</span><span style="font-size:.9rem;color:#f0e8f0;">Roundness · motion · brightness</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Productivity</span><span style="font-size:.9rem;color:#f0e8f0;">Low-new, high-established</span></div>
+      <div class="codex-row"><span style="font-size:.8rem;color:rgba(240,232,240,.45);letter-spacing:.08em;text-transform:uppercase;">Domain</span><span style="font-size:.9rem;color:#e87090;font-weight:600;">rry.kr</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SUFFIX SERIES
+════════════════════════════════════════════ -->
+<section style="padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;" class="fade-up">
+      <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:.8rem;">Suffix Family</p>
+      <h2 style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:#f0e8f0;">The Suffix Series</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1rem;" class="fade-up">
+      <a href="https://ous.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ous</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ous.kr</div></a>
+      <a href="https://ize.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ize</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ize.kr</div></a>
+      <a href="https://ive.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ive</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ive.kr</div></a>
+      <a href="https://ity.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ity</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ity.kr</div></a>
+      <a href="https://ify.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ify</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ify.kr</div></a>
+      <a href="https://ial.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ial</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ial.kr</div></a>
+      <a href="https://ful.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ful</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ful.kr</div></a>
+      <a href="https://ary.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ary</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ary.kr</div></a>
+      <a href="https://ble.kr"  class="series-card"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#f0e8f0;margin-bottom:.3rem;">‑ble</div><div style="font-size:.72rem;color:rgba(240,232,240,.4);">ble.kr</div></a>
+      <a href="https://rry.kr"  class="series-card active"><div style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:#e87090;margin-bottom:.3rem;">‑rry</div><div style="font-size:.72rem;color:#c42848;font-weight:600;">rry.kr</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ORIGIN NARRATIVE
+════════════════════════════════════════════ -->
+<section style="padding:6rem 2rem;">
+  <div style="max-width:800px;margin:0 auto;text-align:center;" class="fade-up">
+    <div style="font-size:4rem;margin-bottom:1.5rem;">🍇</div>
+    <p style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#c42848;margin-bottom:1rem;">Origin Story</p>
+    <h2 style="font-family:'Cinzel',serif;font-size:2.2rem;font-weight:700;color:#f0e8f0;margin-bottom:1.8rem;">Born in the Berry Patch</h2>
+    <p style="font-family:'Playfair Display',serif;font-size:1.12rem;line-height:1.85;color:rgba(240,232,240,.78);margin-bottom:1.5rem;">
+      Before English was English, Proto-Germanic farmers and foragers used small, round sounds to name small, round things. The cluster that became <strong style="color:#e87090;">‑rry</strong> was already there — in the word for berry, in the sound of something rolling, in the trill of something alive and present. Over fifteen centuries of use, it proved so phonetically satisfying that English has never let it go.
+    </p>
+    <p style="font-family:'Playfair Display',serif;font-size:1.12rem;line-height:1.85;color:rgba(240,232,240,.78);margin-bottom:2.5rem;">
+      Today, ‑rry spans the full arc of human experience: the sweetness of a <em>cherry</em>, the urgency of a <em>hurry</em>, the sorrow of a <em>worry</em>, the joy of <em>merry</em>. Few syllables in English carry so much emotional range with such phonetic economy.
+    </p>
+    <a href="#contact" class="btn-primary">Get in Touch</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════ -->
+<section id="contact" style="padding:6rem 2rem;">
+  <div style="max-width:680px;margin:0 auto;text-align:center;" class="fade-up">
+    <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#c42848,#e87090);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.6rem;">✉️</div>
+    <h2 style="font-family:'Cinzel',serif;font-size:2.2rem;font-weight:700;color:#f0e8f0;margin-bottom:1rem;">Connect with rry.kr</h2>
+    <p style="font-size:1rem;color:rgba(240,232,240,.6);line-height:1.7;margin-bottom:2.2rem;">
+      Interested in the ‑rry domain, the suffix series project, or lexical identity for your own domain? Reach out — every ‑rry word started with someone reaching out.
+    </p>
+    <a href="mailto:hello@rry.kr" class="btn-primary" style="font-size:1rem;">hello@rry.kr</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer style="border-top:1px solid rgba(196,40,72,.12);padding:2.5rem 2rem;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#c42848,#e87090);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:.7rem;color:#fff;">R</div>
+      <span style="font-family:'Cinzel',serif;font-size:.9rem;letter-spacing:.1em;color:rgba(240,232,240,.5);">rry.kr</span>
+    </div>
+    <div style="font-size:.78rem;color:rgba(240,232,240,.3);letter-spacing:.06em;">The Suffix of Rhythm &amp; Ripeness</div>
+    <div style="font-size:.78rem;color:rgba(240,232,240,.3);">© 2026 rry.kr</div>
+  </div>
+</footer>
+
+</div><!-- /page-content -->
+
+<!-- ═══════════════════════════════════════════
+     PARTICLE SYSTEM + SCROLL OBSERVER
+════════════════════════════════════════════ -->
+<script>
+(function() {
+  /* ── palette ── */
+  const C = {
+    berry:   '#c42848',
+    briar:   '#e87090',
+    harvest: '#d4900a',
+    dew:     '#3a9860',
+    void:    '#060408'
+  };
+
+  /* ── canvas setup ── */
+  const canvas = document.getElementById('rry-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); initAll(); });
+
+  /* ══════════════════════════════════
+     Layer 1 · BerryMote  (fruit-speck dots)
+  ══════════════════════════════════ */
+  class BerryMote {
+    reset() {
+      this.x  = Math.random() * W;
+      this.y  = Math.random() * H;
+      this.r  = Math.random() * 3 + 1.2;
+      this.vx = (Math.random() - .5) * .35;
+      this.vy = (Math.random() - .5) * .35;
+      const p = [C.berry, C.briar, C.harvest, C.dew];
+      this.col  = p[Math.floor(Math.random() * p.length)];
+      this.alpha = Math.random() * .45 + .1;
+      this.pulse = Math.random() * Math.PI * 2;
+      this.pulseSpeed = Math.random() * .02 + .008;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.pulse += this.pulseSpeed;
+      if (this.x < 0) this.x = W;
+      if (this.x > W) this.x = 0;
+      if (this.y < 0) this.y = H;
+      if (this.y > H) this.y = 0;
+    }
+    draw() {
+      const a = this.alpha * (.7 + .3 * Math.sin(this.pulse));
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.col;
+      ctx.globalAlpha = a;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  /* ══════════════════════════════════
+     Layer 2 · RhythmWord  (floating -rry words)
+  ══════════════════════════════════ */
+  const RRY_WORDS = ['berry','cherry','merry','hurry','worry','carry','quarry',
+                     'marry','ferry','parry','tarry','flurry','slurry','scurry',
+                     'starry','sorry','curry','burry','‑rry'];
+
+  class RhythmWord {
+    reset() {
+      this.x     = Math.random() * W;
+      this.y     = H + 30;
+      this.vy    = -(Math.random() * .55 + .18);
+      this.vx    = (Math.random() - .5) * .22;
+      this.word  = RRY_WORDS[Math.floor(Math.random() * RRY_WORDS.length)];
+      this.size  = Math.random() * 9 + 9;
+      this.alpha = 0;
+      this.fadeIn  = true;
+      this.maxAlpha = Math.random() * .22 + .07;
+      const cols = [C.berry, C.briar, C.harvest, C.dew];
+      this.col = cols[Math.floor(Math.random() * cols.length)];
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.fadeIn && this.alpha < this.maxAlpha) this.alpha += .002;
+      if (this.y < H * .3) this.alpha -= .003;
+      if (this.alpha < 0 || this.y < -40) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.font = `italic ${this.size}px 'Playfair Display', serif`;
+      ctx.fillStyle = this.col;
+      ctx.globalAlpha = Math.max(0, this.alpha);
+      ctx.fillText(this.word, this.x, this.y);
+      ctx.restore();
+    }
+  }
+
+  /* ══════════════════════════════════
+     Layer 3 · BriarLine  (wandering line traces)
+  ══════════════════════════════════ */
+  class BriarLine {
+    reset() {
+      this.x  = Math.random() * W;
+      this.y  = Math.random() * H;
+      this.len = Math.random() * 60 + 20;
+      this.angle = Math.random() * Math.PI * 2;
+      this.aSp   = (Math.random() - .5) * .012;
+      this.vx    = (Math.random() - .5) * .4;
+      this.vy    = (Math.random() - .5) * .4;
+      this.alpha = Math.random() * .12 + .04;
+      this.col   = Math.random() < .5 ? C.berry : C.dew;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.angle += this.aSp;
+      if (this.x < -100 || this.x > W + 100 || this.y < -100 || this.y > H + 100) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.beginPath();
+      const ex = this.x + Math.cos(this.angle) * this.len;
+      const ey = this.y + Math.sin(this.angle) * this.len;
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(ex, ey);
+      ctx.strokeStyle = this.col;
+      ctx.globalAlpha = this.alpha;
+      ctx.lineWidth = .7;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ══════════════════════════════════
+     Layer 4 · BerryRing  (expanding rings)
+  ══════════════════════════════════ */
+  class BerryRing {
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 30 + 10;
+      this.maxR = Math.random() * 140 + 60;
+      this.speed = Math.random() * .7 + .35;
+      this.alpha = Math.random() * .18 + .06;
+      this.col = Math.random() < .6 ? C.berry : C.harvest;
+    }
+    update() {
+      this.r += this.speed;
+      this.alpha -= .0018;
+      if (this.alpha <= 0 || this.r > this.maxR) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.strokeStyle = this.col;
+      ctx.globalAlpha = Math.max(0, this.alpha);
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ── pools ── */
+  let motes = [], words = [], lines = [], rings = [];
+
+  function initAll() {
+    motes = Array.from({ length: 65 }, () => { const m = new BerryMote();   m.reset(); m.y = Math.random() * H; return m; });
+    words = Array.from({ length: 28 }, () => { const w = new RhythmWord();  w.reset(); w.y = Math.random() * H; return w; });
+    lines = Array.from({ length: 22 }, () => { const l = new BriarLine();   l.reset(); return l; });
+    rings = Array.from({ length: 12 }, () => { const r = new BerryRing();   r.reset(); r.r = Math.random() * r.maxR; return r; });
+  }
+  initAll();
+
+  /* ── animation loop ── */
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    rings.forEach(r => { r.update(); r.draw(); });
+    lines.forEach(l => { l.update(); l.draw(); });
+    motes.forEach(m => { m.update(); m.draw(); });
+    words.forEach(w => { w.update(); w.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  /* ── IntersectionObserver for fade-up ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+})();
+</script>
+
+</body>
+</html>
